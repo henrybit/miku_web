@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.web.dao.JoinGameDao">
+    <resultMap type="JoinGame" id="joinGame">
+        <id property="id" column="id" />
+        <result property="wechatId" column="wechat_id" />
+        <result property="name" column="name" />
+        <result property="headPic" column="head_pic" />
+        <result property="job" column="job" />
+        <result property="phone" column="phone" />
+        <result property="refereeWechatId" column="referee_wechat_id" />
+        <result property="refereeWechat" column="referee_wechat" />
+        <result property="sex" column="sex" />
+        <result property="corporation" column="corporation" />
+        <result property="registerTime" column="register_time" />
+        <result property="corporationPeopleNum" column="corporation_people_num" />
+        <result property="projectName" column="project_name" />
+        <result property="projectDesc" column="project_desc" />
+        <result property="tpFinancing" column="tp_financing" />
+        <result property="tpPrice" column="tp_price" />
+        <result property="tpContacts" column="tp_contacts" />
+        <result property="tpPinTui" column="tp_pin_tui" />
+        <result property="tpStudy" column="tp_study" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <select id="getList" parameterType="Map" resultMap="joinGame">
+        select * from join_game
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="wechatId!=null">
+                and wechat_id = #{wechatId}
+            </if>
+        </trim>
+        <if test="start!=null and end!=null">
+            limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="getOne" parameterType="Map" resultMap="joinGame">
+        select * from join_game where wechat_id=#{wechatId} order by id desc limit 1
+    </select>
+
+    <select id="getCount" parameterType="Map" resultType="Integer">
+        select count(0) from join_game
+        where referee_wechat_id=#{refereeWechatId}
+    </select>
+
+    <insert id="addOne" parameterType="joinGame" useGeneratedKeys="true" keyProperty="id">
+        insert into join_game (id,wechat_id,name,head_pic,job,phone,referee_wechat_id,referee_wechat,sex,corporation,register_time,corporation_people_num,project_name,project_desc,tp_financing,tp_price,tp_contacts,tp_pin_tui,tp_study,create_time)
+        values(null,#{wechatId},#{name},#{headPic},#{job},#{phone},#{refereeWechatId},#{refereeWechat},#{sex},#{corporation},#{registerTime},#{corporationPeopleNum},#{projectName},#{projectDesc},#{tpFinancing},#{tpPrice},#{tpContacts},#{tpPinTui},#{tpStudy},#{createTime})
+    </insert>
+
+    <update id="deleteOne" parameterType="Map">
+        update join_game set data_status=-1 where id=#{id}
+    </update>
+
+    <update id="updateOne" parameterType="Map">
+        update join_game set name=#{name}
+        where id=#{id}
+    </update>
+
+    <delete id="dropOne" parameterType="Map">
+        delete from join_game where id=#{id}
+    </delete>
+</mapper>
