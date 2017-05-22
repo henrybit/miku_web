@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.net.URLDecoder;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -183,6 +184,9 @@ public class GameController extends BaseController{
                 joinGame.setSexDesc("女");
         }
 
+        if (joinGameList != null)
+            Collections.sort(joinGameList, new JoinGameComparator());
+
         BaseResponse baseResponse = new BaseResponse();
         if (joinGameList != null) {
             baseResponse.setCode(1);
@@ -246,7 +250,7 @@ public class GameController extends BaseController{
     @RequestMapping(value="getToken.json")
     public ModelAndView getAccessToken(HttpServletRequest request, HttpServletResponse response) {
         String code = request.getParameter("code");
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx48b6a4660d0bebce&secret=2e13e2525fb42ec976479191de84d958&code=CODE&grant_type=authorization_code&pass_ticket=Yu4%2FOeoH7eVWtvg3OdPtICcZA1la6hXJ5oIpD0tKV7NkRVCuiAXQCuva4UlsLWaN";
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx48b6a4660d0bebce&secret=31b2c1236fab334ff7819861d448fe89&code=CODE&grant_type=authorization_code&pass_ticket=Yu4%2FOeoH7eVWtvg3OdPtICcZA1la6hXJ5oIpD0tKV7NkRVCuiAXQCuva4UlsLWaN";
         url = url.replace("CODE",code);
         com.miku.web.entity.weixin.BaseResponse baseResponse = NetWorkCenter.get(url);
         String resultJson = isSuccess(baseResponse.getErrcode()) ? baseResponse.getErrmsg() : baseResponse.toString();
@@ -267,7 +271,7 @@ public class GameController extends BaseController{
     @RequestMapping(value="getuser.json")
     public ModelAndView getUserInfo(HttpServletRequest request, HttpServletResponse response) {
         String code = request.getParameter("code");
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx48b6a4660d0bebce&secret=2e13e2525fb42ec976479191de84d958&code=CODE&grant_type=authorization_code&pass_ticket=Yu4%2FOeoH7eVWtvg3OdPtICcZA1la6hXJ5oIpD0tKV7NkRVCuiAXQCuva4UlsLWaN";
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx48b6a4660d0bebce&secret=31b2c1236fab334ff7819861d448fe89&code=CODE&grant_type=authorization_code&pass_ticket=Yu4%2FOeoH7eVWtvg3OdPtICcZA1la6hXJ5oIpD0tKV7NkRVCuiAXQCuva4UlsLWaN";
         url = url.replace("CODE",code);
         com.miku.web.entity.weixin.BaseResponse baseResponse = NetWorkCenter.get(url);
         String resultJson = isSuccess(baseResponse.getErrcode()) ? baseResponse.getErrmsg() : baseResponse.toString();

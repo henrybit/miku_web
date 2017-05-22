@@ -37,7 +37,8 @@ public class ImageTools {
         try {
             BufferedImage bg = ImageIO.read(new File(bgPath));
             graphics.drawImage(bg, 0, 0, null);
-            Font font=new Font("楷体",Font.PLAIN,40);
+            // Font font=new Font("楷体",Font.PLAIN,40);
+            Font font=new Font("sans-serif",Font.PLAIN,40);
             graphics.setFont(font);
             graphics.setColor(new Color(0,0,0));//设置黑色字体,同样可以graphics.setColor(Color.black);
             graphics.drawString(keywords+"英雄", 280, 520);
@@ -59,11 +60,14 @@ public class ImageTools {
             BufferedImage bg = ImageIO.read(new File(bgPath));
             BufferedImage qrcode = ImageIO.read(new File(qrPath));
             graphics.drawImage(bg, 0, 0, null);
-            graphics.drawImage(qrcode,  206, 600, null);
-            Font font=new Font("楷体",Font.PLAIN,40);
+            graphics.drawImage(qrcode,  206, 675, null);
+            // graphics.drawImage(qrcode,  206, 600 + 75, null);
+            // Font font=new Font("楷体",Font.PLAIN,40);
+            Font font=new Font("sans-serif",Font.PLAIN,40);
             graphics.setFont(font);
             graphics.setColor(new Color(0,0,0));//设置黑色字体,同样可以graphics.setColor(Color.black);
-            graphics.drawString(keywords, 280, 520);
+            // graphics.drawString(keywords, 280 + 45, 520);
+            graphics.drawString(keywords, 355, 520);
             ImageIO.write(image, "PNG", new File(outPath));//生成图片方法一
             File file = new File(outPath);
             file.setExecutable(true, false);//设置可执行权限
